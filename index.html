@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Forecast</title>
+        <!-- fontawesome -->
+        <script src="https://kit.fontawesome.com/fb5318693d.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="main">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fa-brands fa-cloudversify"></i>
+                    <h3>WForecast</h3>
+                </div>
+                <form id="location-form">
+                    <div class="form-control">
+                        <input type="Text" id="city-name" placeholder="Enter your location" />
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                </form>
+                <div class="mode">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+            </nav>
+            <div class="weather-details">
+                <div class="main-dashboard">
+                    <div class="current-temp">
+                        <h1><span id="temp"></span><sup>°C</sup></h1>
+                    </div>
+                    <div>
+                        <h3 class="location"></h3>
+                        <p class="date-time"></p>
+                    </div>
+                    <div class="current-weather">
+                        <i id="weather-icon" class="fa-brands fa-cloudversify" style="font-size: 4rem"></i>
+                        <h3 id="weather-text">Rain</h3>
+                    </div>
+                </div>
+
+                <div class="extra-forecast">
+                    <div class="extra-data">
+                        <i class="fa-solid fa-weight-scale"></i>
+                        <h3>Pressure</h3>
+                        <h2><span id="pressure-data">1000</span> mb</h2>
+                    </div>
+                    <div class="extra-data">
+                        <i class="fa-solid fa-wind"></i>
+                        <h3>Wind</h3>
+                        <h2><span id="wind-data">1000</span> mbh</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="module" src="script.js"></script>
+</html>

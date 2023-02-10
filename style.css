@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+:root {
+    --bg-color: #0003;
+}
+body {
+    background: url(./assets/images/cloud.jpg) no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    font-family: 'Fira Sans', sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+#main .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0 24px;
+    margin: 50px auto;
+}
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    background-color: var(--bg-color);
+    padding: 8px;
+    gap: 10px;
+    border-radius: 20px;
+}
+.navbar .logo h3 {
+    font-size: 20px;
+}
+.navbar .logo i {
+    font-size: 36px;
+}
+
+.navbar .mode {
+    background-color: var(--bg-color);
+    padding: 16px;
+    border-radius: 20px;
+}
+.navbar .mode i {
+    font-size: 20px;
+}
+#location-form {
+    min-width: 320px;
+    margin-right: 55px;
+}
+
+#location-form .form-control {
+    position: relative;
+    background-color: #2828284d;
+    margin: 20px 0;
+    width: 100%;
+    border-radius: 4px;
+}
+#location-form .form-control input {
+    background: transparent;
+    width: 100%;
+    height: 48px;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 4px 24px;
+    border: 2px solid transparent;
+    color: #fff;
+    border-radius: 2px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+#location-form .form-control i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.weather-details {
+    display: grid;
+    width: 65%;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+}
+
+.main-dashboard {
+    grid-column: 1 / span 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.current-temp h1 {
+    font-size: 8.5rem;
+    font-weight: 500;
+}
+.current-temp sup {
+    font-size: 3.5rem;
+}
+
+.main-dashboard .location {
+    font-size: 56px;
+    font-weight: 600;
+}
+.main-dashboard .date-time {
+    font-size: 1.5rem;
+}
+.current-weather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+    white-space: nowrap;
+}
+
+.forecast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    padding: 40px 10px;
+}
+
+.forecast-date {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.forecast-data {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.humidity-data {
+    text-align: center;
+}
+.humidity-data h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.humidity-data .humidity-value {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.extra-forecast {
+    grid-column: 1 / span 3;
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+}
+.extra-data {
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    font-size: 1.5rem;
+}
+.extra-data h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+.extra-data h2 {
+    font-size: 25px;
+    font-weight: 500;
+}
