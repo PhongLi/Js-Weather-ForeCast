@@ -206,3 +206,8 @@ body {
     max-width: 100%;
     width: 100%;
 }
+
+.active {
+    border: 1px solid white;
+    background-color: rgba(128, 197, 214, 1);
+}
