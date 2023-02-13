@@ -57,3 +57,8 @@ export const findIcon = (condition) => {
     }
     return icon;
 };
+
+export const setInnerText = (element, text) => {
+    element.innerText = '';
+    element.innerText = text;
+};

@@ -1,10 +1,10 @@
-import { dateToWords, findIcon } from './utils.js';
+import { dateToWords, findIcon, setInnerText } from './utils.js';
+import { createChart } from './tempChart.js';
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const API_KEY = '0da9f94584ff40e0b9231015230802';
-
 const form = $('#location-form');
 const tempEl = $('#temp');
 const locationEL = $('.location');
@@ -30,22 +30,21 @@ const date = new Date().toLocaleDateString('en-us', {
     day: 'numeric',
 });
 
-function getWeather(value) {
+function getWeatherData(value) {
     const city_name = value ?? city.value;
     if (city_name) {
         const url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city_name}&days=3&aqi=no&alerts=yes`;
         fetch(url)
             .then((res) => res.json())
-            .then((data) => renderWeather(data))
+            .then((data) => {
+                renderWeather(data);
+                renderDayForecast(data);
+                handleEvents(data);
+            })
             .catch((err) => {
                 console.log(err.message);
             });
     }
-}
-
-function setInnerText(element, text) {
-    element.innerText = '';
-    element.innerText = text;
 }
 
 function renderWeather(data) {
@@ -57,12 +56,14 @@ function renderWeather(data) {
     setInnerText(windEl, data.current.wind_mph);
     const iconClassName = `fa-solid ${findIcon(data.current.condition.text)}`;
     weatherIcon.className = iconClassName;
-    renderDayForecast(data?.forecast?.forecastday);
 }
 
 function renderDayForecast(data) {
-    const htmls = data.map((day, index) => {
-        return `<div class="forecast" data-index='${index}'>
+    const forecastDays = data?.forecast?.forecastday;
+    createChart(forecastDays[0]);
+
+    const htmls = forecastDays.map((day, index) => {
+        return `<div class="forecast" data-index='${index}'">
                     <h2 class="forecast-date">${dateToWords(day.date)}</h2>
                     <div class="forecast-data">
                         <i class="fa-solid ${findIcon(
@@ -75,15 +76,27 @@ function renderDayForecast(data) {
                     </div>
                 </div>`;
     });
+    // clear old forecast elements before add new one
     const forecastEls = $$('.forecast');
     forecastEls?.forEach((el) => el.remove());
     weather.insertAdjacentHTML('beforeend', htmls.join(''));
 }
-form.onsubmit = (e) => {
-    e.preventDefault();
-    getWeather();
+
+function handleEvents(data) {
+    const forecastDays = data?.forecast?.forecastday;
+    //handle event click on day forecast
+    weather.onclick = (event) => {
+        if (event.target.classList.contains('forecast')) {
+            const index = event.target.getAttribute('data-index');
+            createChart(forecastDays[index]);
+        }
+    };
+}
+window.onload = () => {
+    getWeatherData('VietNam');
 };
 
-window.onload = () => {
-    getWeather('VietNam');
+form.onsubmit = (e) => {
+    e.preventDefault();
+    getWeatherData();
 };
