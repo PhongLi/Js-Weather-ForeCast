@@ -14,7 +14,9 @@ const weatherText = $('#weather-text');
 const pressureEl = $('#pressure-data');
 const windEl = $('#wind-data');
 const weather = $('.weather-details');
-const mode = $('.mode');
+const modeBtn = $('.mode');
+const modeIcon = $('#mode-icon');
+
 let isDay = true;
 let currentIndex = 0;
 
@@ -43,6 +45,7 @@ function getWeatherData(value) {
                 if (data) {
                     renderWeather(data);
                     renderDayForecast(data);
+                    activeDayForecast();
                     handleEvents(data);
                 }
             })
@@ -50,6 +53,19 @@ function getWeatherData(value) {
                 console.log(err.message);
             });
     }
+}
+
+function getWeatherWithLocation() {
+    // Get user's location using the Geolocation API
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            // fetch weather api with user's location
+            getWeatherData(`${lat} ${lon}`);
+        },
+        (err) => console.log(err),
+    );
 }
 
 function renderWeather(data) {
@@ -67,16 +83,14 @@ function renderDayForecast(data) {
     const forecastDays = data?.forecast?.forecastday;
     createChart(forecastDays[0]);
 
-    const htmls = forecastDays.map((day, index) => {
+    const htmls = forecastDays.map((forecast, index) => {
         return `<div class="forecast" data-index='${index}'">
-                    <h2 class="forecast-date">${dateToWords(day.date)}</h2>
+                    <h2 class="forecast-date">${dateToWords(forecast.date)}</h2>
                     <div class="forecast-data">
-                        <i class="fa-solid ${findIcon(
-                            day.day.condition.text,
-                        )} forecast-icon" style="font-size: 4rem"></i>
+                        <i class="fa-solid ${findIcon(forecast.day.condition.text)} forecast-icon" ></i>
                         <div class="humidity-data">
                             <h3>Humidity</h3>
-                            <h2 class="humidity-value">99%</h2>
+                            <h2 class="humidity-value">${forecast.day.avghumidity}%</h2>
                         </div>
                     </div>
                 </div>`;
@@ -89,33 +103,25 @@ function renderDayForecast(data) {
 
 function handleEvents(data) {
     const forecastDays = data?.forecast?.forecastday;
-    activeCard();
     //handle event click on day forecast
     weather.onclick = (event) => {
-        if (event.target.classList.contains('forecast')) {
-            const index = event.target.getAttribute('data-index');
+        const forecastNode = event.target.closest('.forecast');
+        if (forecastNode) {
+            const index = forecastNode.getAttribute('data-index');
             createChart(forecastDays[index]);
+            // update current index and active day forecast
             currentIndex = index;
-            activeCard();
+            activeDayForecast();
         }
     };
-    mode.onclick = () => {
+    //toggle day night mode
+    modeBtn.onclick = () => {
         isDay = !isDay;
         changeBg(isDay);
     };
 }
-function getWeatherWithLocation() {
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            let lat = position.coords.latitude;
-            let lon = position.coords.longitude;
-            // get weather data with current location in the first time
-            getWeatherData(`${lat} ${lon}`);
-        },
-        (err) => console.log(err),
-    );
-}
-function activeCard() {
+
+function activeDayForecast() {
     const forecastNodeList = $$('.forecast');
     const activeNode = $('.forecast.active');
     if (activeNode) {
@@ -127,20 +133,26 @@ function activeCard() {
         }
     });
 }
-function changeBg(isDay) {
+
+function changeBg(bool) {
     if (document.body) {
         const hour = new Date().getHours();
-        isDay = isDay ?? (hour >= 6 && hour < 18);
+        isDay = bool ?? (hour >= 6 && hour < 18);
         document.body.style = `background-image:  linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), url(${
             isDay ? './assets/images/cloud.jpg' : './assets/images/night.jpg'
         });`;
+
+        if (isDay) {
+            modeIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            modeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
     }
 }
 
 window.onload = () => {
     getWeatherWithLocation();
     changeBg();
-    activeCard();
 };
 
 form.onsubmit = (e) => {
