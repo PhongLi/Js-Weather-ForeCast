@@ -43,3 +43,5 @@ Here is a live [demo]
 - 3-days weather
 - Temperatures on chart
 - Changing background based on time of day
+- Automatically get user's location at the first visit
+- Compatible with all devices
