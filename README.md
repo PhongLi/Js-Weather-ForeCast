@@ -15,6 +15,7 @@ ShinhanDS mid-term project. Using API weather to create a web app for users to s
 ## Screenshot
 
 <img width="800" alt="screenshot" src="https://github.com/PhongLi/Js-Weather-ForeCast/blob/41f6d1be19709180483a5ca8c47aebf33d042d6c/assets/images/screenshot.png">
+<img width="800" alt="screenshot" src="https://github.com/PhongLi/Js-Weather-ForeCast/blob/246ad3829b2ad0411c2a4652d06e67b9ccdd1c97/assets/images/screenshot2.png">
 
 ## Demo
 
