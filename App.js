@@ -51,6 +51,7 @@ function getWeatherData(value) {
             })
             .catch((err) => {
                 console.log(err.message);
+                alert(`Location not available!`);
             });
     }
 }
@@ -64,7 +65,10 @@ function getWeatherWithLocation() {
             // fetch weather api with user's location
             getWeatherData(`${lat} ${lon}`);
         },
-        (err) => console.log(err),
+        (err) => {
+            console.log(err.message);
+            getWeatherData('Vietnam');
+        },
     );
 }
 
