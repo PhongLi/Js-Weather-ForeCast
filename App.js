@@ -81,7 +81,7 @@ function renderWeather(data) {
 
 function renderDayForecast(data) {
     const forecastDays = data?.forecast?.forecastday;
-    createChart(forecastDays[0]);
+    createChart(forecastDays[currentIndex]);
 
     const htmls = forecastDays.map((forecast, index) => {
         return `<div class="forecast" data-index='${index}'">
@@ -103,7 +103,7 @@ function renderDayForecast(data) {
 
 function handleEvents(data) {
     const forecastDays = data?.forecast?.forecastday;
-    //handle event click on day forecast
+    //handle event onclick day forecast
     weather.onclick = (event) => {
         const forecastNode = event.target.closest('.forecast');
         if (forecastNode) {
@@ -133,7 +133,6 @@ function activeDayForecast() {
         }
     });
 }
-
 function changeBg(bool) {
     if (document.body) {
         const hour = new Date().getHours();

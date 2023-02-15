@@ -2,10 +2,11 @@ export const dateToWords = (date) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     date = new Date(date);
+
     const month = months[date.getMonth()];
     const dateNum = date.getDate();
 
-    return `${month} ${dateNum}`;
+    return `${month} - ${dateNum}`;
 };
 export const findIcon = (condition) => {
     let icon;
