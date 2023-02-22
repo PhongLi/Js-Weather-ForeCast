@@ -3,7 +3,7 @@ import { createChart } from './tempChart.js';
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const API_KEY = '0da9f94584ff40e0b9231015230802';
+const API_KEY = 'ad5f4ceb7519437197742314232202';
 const form = $('#location-form');
 const tempEl = $('#temp');
 const locationEL = $('.location');
